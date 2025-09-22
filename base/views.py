@@ -212,4 +212,4 @@ def userDashboard(request):
 def admin(request):
     if request.user.is_staff:
         return render(request, "admin.html")
-    return redirect('admin dashboard')
+    return redirect('admin dashboard.html')
