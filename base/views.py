@@ -23,6 +23,7 @@ def registerPage(request):
     return render(request, "register.html")
 
 
+
 def home(request):
     quizzes = Quiz.objects.all()
     return render(request, "home.html", {"quizzes": quizzes})
@@ -208,3 +209,7 @@ def userDashboard(request):
     results = Result.objects.filter(user=request.user).order_by('-date_taken')
     return render(request, "user_dashboard.html", {"results": results})
 
+def admin(request):
+    if request.user.is_staff:
+        return render(request, "admin.html")
+    return redirect('admin dashboard')

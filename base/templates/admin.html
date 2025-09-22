@@ -68,6 +68,10 @@
             <input type="password" placeholder="Password" class="form-input" required>
             <button type="submit" class="submit-button">Log In</button>
         </form>
+        <form method="post" action="/admindashboard">
+    {% csrf_token %}
+    <!-- fields -->
+</form>
         <p class="mt-4 text-gray-600">
             Admin accounts must be created by an existing administrator.
         </p>
