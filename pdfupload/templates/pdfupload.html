@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Upload</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #a7f3d0 0%, #34d399 100%);
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .card {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        .button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            color: white;
+            background-color: #2196F3;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+        #upload-status {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1 class="text-2xl font-bold mb-6">AI Document Upload</h1>
+            <p class="text-gray-600 mb-4">Upload a PDF document to be processed by the AI.</p>
+            <form id="upload-form">
+                <input type="file" id="pdf-file" accept=".pdf" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100">
+                <button type="submit" class="button bg-blue-500">
+                    Upload
+                </button>
+            </form>
+            <div id="upload-status"></div>
+            <div class="mt-4 text-center text-sm">
+                <a href="admin.html" class="text-gray-500 hover:underline">Back to Admin Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('pdf-file');
+            const statusDiv = document.getElementById('upload-status');
+            
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                statusDiv.textContent = 'Uploading "' + file.name + '"...';
+
+                // Simulate an upload process with a timeout
+                setTimeout(() => {
+                    statusDiv.textContent = 'File "' + file.name + '" uploaded successfully! It is now being processed.';
+                    // In a real Django setup, you would use a fetch request to send the file to your server.
+                    // Example:
+                    // const formData = new FormData();
+                    // formData.append('pdf', file);
+                    // fetch('/api/pdf-upload/', { method: 'POST', body: formData })
+                    //   .then(response => response.json())
+                    //   .then(data => {
+                    //     statusDiv.textContent = 'Processing complete!';
+                    //   })
+                    //   .catch(error => {
+                    //     statusDiv.textContent = 'Upload failed. Please try again.';
+                    //   });
+                }, 2000);
+            } else {
+                statusDiv.textContent = 'Please select a file to upload.';
+            }
+        });
+    </script>
+</body>
+</html>
