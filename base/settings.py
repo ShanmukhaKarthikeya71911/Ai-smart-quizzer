@@ -69,6 +69,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'base.wsgi.application'
 AUTH_USER_MODEL = 'base.CustomUser'
+APPEND_SLASH = False
 
 
 

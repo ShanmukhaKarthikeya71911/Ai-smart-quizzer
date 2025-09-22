@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -139,8 +140,15 @@ def adminDashboard(request):
 
 
 def contactus(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+        # Here you can handle the contact form submission, e.g., save to database or send email
+        messages.success(request, "Thank you for contacting us. We will get back to you soon.")
+        return redirect("contactus")
     return render(request, "contactus.html")
-    return redirect("home")
+    
 
 
 def aboutus(request):

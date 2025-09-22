@@ -73,8 +73,15 @@
             <textarea placeholder="Your report or inquiry here..." rows="6" class="form-input" required></textarea>
             <button type="submit" class="submit-button">Post</button>
         </form>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Your Name" required><br>
+        <input type="email" name="email" placeholder="Your Email" required><br>
+        <textarea name="message" placeholder="Your Message" required></textarea><br>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form> 
         <p class="mt-4 text-sm text-gray-500">
-            <a href="/" class="hover:underline">Back to Home</a>
+            <a href="/home.html" class="hover:underline">Back to Home</a>
         </p>
     </div>
 </body>

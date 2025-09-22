@@ -1,1 +1,0 @@
-# Ai-smart-quizzer
