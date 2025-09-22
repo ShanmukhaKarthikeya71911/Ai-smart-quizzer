@@ -15,6 +15,13 @@ from django.shortcuts import render
 def login_view(request):
     return render(request, 'login.html')
 
+def loginPage(request):
+    return render(request, "login.html")
+
+def registerPage(request):
+    return render(request, "register.html")
+
+
 def home(request):
     quizzes = Quiz.objects.all()
     return render(request, "home.html", {"quizzes": quizzes})
@@ -133,6 +140,7 @@ def adminDashboard(request):
 
 def contactus(request):
     return render(request, "contactus.html")
+    return redirect("home")
 
 
 def aboutus(request):
