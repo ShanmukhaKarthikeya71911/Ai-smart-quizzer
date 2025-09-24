@@ -12,14 +12,15 @@ urlpatterns = [
     path("result/", views.result, name="result"),
     path("profile/", views.profile, name="profile"),
     path("admin", views.adminPage, name="admin"),
+    path("admindashboard", views.adminDashboard, name="admindashboard"),
     path("add-quiz", views.addQuiz, name="add-quiz"),
-    path("admin dashboard", views.adminDashboard, name="admin dashboard"),
     path("contactus", views.contactus, name="contactus"),
     path("aboutus/", views.aboutus, name="aboutus"),
     path("updatequiz/<str:pk>/", views.updateQuiz, name="updatequiz"),
     path("deletequiz/<str:pk>/", views.deleteQuiz, name="deletequiz"),
     path("addquestion/", views.addQuestion, name="addquestion"),
     path("userdashboard/", views.userDashboard, name="userdashboard"),
+    path("aisuggest/", views.aiSuggest, name="aisuggest"),
 ]
 
 

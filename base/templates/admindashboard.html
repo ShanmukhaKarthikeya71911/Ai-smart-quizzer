@@ -137,10 +137,16 @@
                 Upload a PDF document to generate new quiz questions.
             </p>
             <form action="#" method="post" enctype="multipart/form-data">
-                <input type="file" class="form-input" accept="application/pdf" required>
-                <button type="submit" class="submit-button">Upload PDF</button>
-            </form>
-        </div>
+    {% csrf_token %}
+    <input type="file" class="form-input" name="pdf_file" accept="application/pdf" required>
+    <button type="submit" class="submit-button">Upload PDF</button>
+</form>
+<form action="pdfupload/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" class="form-input" name="pdf_file" accept="application/pdf" required>
+    <button type="submit" class="submit-button">Upload PDF</button>
+</form>
+</div>
 
         <!-- User Management Section -->
         <div class="card">

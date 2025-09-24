@@ -70,7 +70,11 @@
         </form>
         <form method="post" action="/admindashboard">
     {% csrf_token %}
-    <!-- fields -->
+    <form action="/pdfupload/templates/pdfupload.html" method="post" enctype="multipart/form-data"> 
+    {% csrf_token %}
+    <input type="file" class="form-input" name="pdf_file" accept="application/pdf" required>
+    <button type="submit" class="submit-button">Upload PDF</button>  
+    </form>
 </form>
         <p class="mt-4 text-gray-600">
             Admin accounts must be created by an existing administrator.
