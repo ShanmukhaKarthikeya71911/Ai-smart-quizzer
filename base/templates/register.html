@@ -97,9 +97,25 @@
                     </svg>
                 </span>
             </div>
-            <form method="POST" action="/signup">
-               <button type="submit" class="submit-button">Sign Up</button> 
-            </form>
+          <form method="POST" action="/signup">
+    {% csrf_token %}
+    <input type="text" name="full_name" placeholder="Full Name" class="form-input" required>
+    <input type="text" name="mobile" placeholder="Mobile Number" class="form-input" pattern="[0-9]{10}" title="Please enter a 10-digit number" required>
+    <input type="email" name="email" placeholder="Email" class="form-input" required>
+    
+    <div class="password-container">
+        <input type="password" id="password" name="password" placeholder="Password" class="form-input" required>
+        <span class="password-toggle" onclick="togglePasswordVisibility('password')">👁</span>
+    </div>
+
+    <div class="password-container">
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" class="form-input" required>
+        <span class="password-toggle" onclick="togglePasswordVisibility('confirm_password')">👁</span>
+    </div>
+
+    <button type="submit" class="submit-button">Sign Up</button> 
+</form>
+
         </p>
         <p class="mt-4 text-gray-600">
             Already have an account? <a href="/login" class="text-green-600 hover:underline font-medium">Log In</a>

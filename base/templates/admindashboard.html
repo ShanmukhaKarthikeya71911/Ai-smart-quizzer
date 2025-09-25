@@ -125,28 +125,67 @@
         <header class="header">
             <h1 class="text-4xl font-extrabold text-gray-800">Admin Dashboard</h1>
             <div class="header-buttons space-x-4">
-                <a href="/home.html" class="home-btn">Home</a>
+                <a href="/base/templates/home.html">Back to Home</a>
                 <a href="/logout" class="logout-btn">Log Out</a>
             </div>
         </header>
 
         <!-- PDF Upload Section -->
-        <div class="card">
-            <h2 class="text-2xl font-bold mb-4">AI Document Upload</h2>
-            <p class="text-gray-600 mb-6">
-                Upload a PDF document to generate new quiz questions.
-            </p>
-            <form action="#" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" class="form-input" name="pdf_file" accept="application/pdf" required>
-    <button type="submit" class="submit-button">Upload PDF</button>
-</form>
-<form action="pdfupload/" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" class="form-input" name="pdf_file" accept="application/pdf" required>
-    <button type="submit" class="submit-button">Upload PDF</button>
-</form>
+<div class="card">
+    <h2 class="text-2xl font-bold mb-4">AI Document Upload</h2>
+    <p class="text-gray-600 mb-6">
+        Upload a PDF document to generate new quiz questions.
+    </p>
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" class="form-input" name="pdf_file" accept="application/pdf" required>
+        <button type="submit" class="submit-button">Upload PDF</button>
+    </form>
+
+    <!-- Uploaded PDFs Table -->
+<div class="mt-6">
+    <h3 class="text-xl font-bold mb-3">Uploaded PDFs</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Uploaded At</th>
+                    <th>Download</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pdf in pdfs %}
+                <tr>
+                    <td>{{ pdf.file.name|slice:"5:" }}</td>
+                    <td>{{ pdf.uploaded_at }}</td>
+                    <td>
+                        <a href="{{ pdf.file.url }}" target="_blank" class="text-green-600 hover:underline">View</a>
+                    </td>
+                    <td>
+                        <form method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="delete_id" value="{{ pdf.id }}">
+                            <button type="submit" class="text-red-600 hover:underline"
+                                onclick="return confirm('Are you sure you want to delete this PDF?');">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-gray-500">No PDFs uploaded yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
+</div>
+
 
         <!-- User Management Section -->
         <div class="card">

@@ -36,7 +36,7 @@ def addQuiz(request):
 
 def adminDashboard(request):
     return render(request, "admindashboard.html")
-
+ 
 def contactus(request):
     return render(request, "contactus.html")
 
@@ -56,7 +56,7 @@ def userDashboard(request):
     return render(request, "user_dashboard.html")
 
 
-# 🚀 AI Suggestion Engine
+# AI Suggestion Engine
 def aiSuggest(request):
     if request.method == "POST":
         user_input = request.POST.get("query", "")
@@ -76,3 +76,23 @@ def aiSuggest(request):
             return JsonResponse({"error": str(e)}, status=500)
 
     return render(request, "ai_suggest.html")  # HTML page with form
+
+from django.shortcuts import render, redirect, get_object_or_404
+from pdfupload.models import UploadedPDF
+
+def admindashboard(request):
+    if request.method == "POST":
+        if "pdf_file" in request.FILES:  # Handle upload
+            pdf = request.FILES["pdf_file"]
+            UploadedPDF.objects.create(file=pdf)
+            return redirect("admindashboard")
+
+        elif "delete_id" in request.POST:  # Handle delete
+            pdf_id = request.POST.get("delete_id")
+            pdf_obj = get_object_or_404(UploadedPDF, id=pdf_id)
+            pdf_obj.file.delete(save=False)  # delete from storage
+            pdf_obj.delete()  # delete from DB
+            return redirect("admindashboard")
+
+    pdfs = UploadedPDF.objects.all().order_by("-uploaded_at")
+    return render(request, "admindashboard.html", {"pdfs": pdfs})

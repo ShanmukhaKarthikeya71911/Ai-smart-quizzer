@@ -63,19 +63,15 @@
 <body>
     <div class="login-container">
         <h2 class="text-3xl font-bold mb-6">Admin Login</h2>
+
+        <!-- ✅ Keep CSRF inside the form -->
         <form action="/admindashboard" method="post">
-            <input type="email" placeholder="Email" class="form-input" required>
-            <input type="password" placeholder="Password" class="form-input" required>
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Email" class="form-input" required>
+            <input type="password" name="password" placeholder="Password" class="form-input" required>
             <button type="submit" class="submit-button">Log In</button>
         </form>
-        <form method="post" action="/admindashboard">
-    {% csrf_token %}
-    <form action="/pdfupload/templates/pdfupload.html" method="post" enctype="multipart/form-data"> 
-    {% csrf_token %}
-    <input type="file" class="form-input" name="pdf_file" accept="application/pdf" required>
-    <button type="submit" class="submit-button">Upload PDF</button>  
-    </form>
-</form>
+
         <p class="mt-4 text-gray-600">
             Admin accounts must be created by an existing administrator.
         </p>
