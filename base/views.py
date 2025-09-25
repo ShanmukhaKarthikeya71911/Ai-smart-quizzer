@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.contrib import messages
 import openai   # Make sure to install: pip install openai
 import os
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Set API key (Best practice: keep in .env or settings.py)
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -11,13 +13,28 @@ def home(request):
     return render(request, "home.html")
 
 def loginPage(request):
-    return render(request, "login.html")
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('userdashboard')  # <- Use URL name, NOT template
+        else:
+            context = {'error': 'Invalid credentials'}
+            return render(request, 'login.html', context)
+    return render(request, 'login.html')
 
 def logoutUser(request):
-    return redirect("home")
+    logout(request)
+    return redirect("home.html")
 
 def register(request):
+    if request.method == "POST":
+        # handle user registration
+        ...
     return render(request, "register.html")
+
 
 def quiz(request, pk):
     return render(request, "quiz.html", {"quiz_id": pk})
@@ -53,6 +70,8 @@ def addQuestion(request):
     return render(request, "add_question.html")
 
 def userDashboard(request):
+    if not request.user.is_authenticated:
+        return redirect("login")
     return render(request, "user_dashboard.html")
 
 

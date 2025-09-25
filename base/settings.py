@@ -18,7 +18,7 @@ sys.path.append(os.path.join(BASE_DIR))  # ensures pdfupload folder is in Python
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path("templates").resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -77,9 +77,11 @@ WSGI_APPLICATION = 'base.wsgi.application'
 AUTH_USER_MODEL = 'base.CustomUser'
 APPEND_SLASH = False
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+# Media files
+# https://docs.djangoproject.com/en/5.2/topics/files/
 
+MEDIA_URL = "pdfupload/"
+MEDIA_ROOT = BASE_DIR / "templates"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
